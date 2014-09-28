@@ -1,8 +1,6 @@
 package is.ru.honn.ruber.service;
 
-import is.ru.honn.ruber.domain.Price;
-import is.ru.honn.ruber.domain.Product;
-import is.ru.honn.ruber.domain.User;
+import is.ru.honn.ruber.domain.*;
 import is.ruframework.domain.RuObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -10,19 +8,17 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class RuberServiceStub extends RuObject implements RuberService
-{
+public class RuberServiceStub extends RuObject implements RuberService {
+
+  private int MAX_USERS = 100;
+  private Map<String, User> users = new HashMap<String, User>();
 
   public RuberServiceStub(User user) {
-
-      try {
-          System.out.println("hello");
-      } catch (UsernameExistsException ue) {
-          log.severe(ue.getMessage());
-      }
-
+      signup(user);
   }
 
   @Override
@@ -71,5 +67,37 @@ public class RuberServiceStub extends RuObject implements RuberService
     priceList.add(new Price("a27a867a-35f4-4253-8d04-61ae80a40df5", "USD", "uberX", 15, 15, 1));
     return priceList;
   }
+
+    @Override
+    public void addTrip(String uuid, Trip trip) {
+
+    }
+
+    @Override
+    public History getHistory(String uuid) {
+        return null;
+    }
+
+    @Override
+    public void signup(User user) {
+        if (!users.containsValue(user.getUserName())) {
+            users.put(user.getUserName(), user);
+        } else {
+            throw new UsernameExistsException();
+        }
+
+    }
+
+    @Override
+    public List<User> getUsers(int offset) {
+        ArrayList<User> userArrayList = new ArrayList<User>();
+        userArrayList.addAll(users.values());
+        return userArrayList.subList(offset, MAX_USERS);
+    }
+
+    @Override
+    public User getUser(String uuid) {
+        return null;
+    }
 
 }
