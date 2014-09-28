@@ -48,8 +48,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.07125891" vertical-offset="0" max-vertical-offset="421">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.035629455" vertical-offset="0" max-vertical-offset="421">
+              <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -811,7 +811,7 @@
       <created>1411589236820</created>
       <updated>1411589236820</updated>
       <workItem from="1411589237441" duration="3015000" />
-      <workItem from="1411827000602" duration="14204000" />
+      <workItem from="1411827000602" duration="14283000" />
     </task>
     <task id="LOCAL-00001" summary="foo">
       <created>1411938124160</created>
@@ -837,11 +837,15 @@
       <created>1411945171841</created>
       <updated>1411945171842</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="lol">
+      <created>1411945186460</created>
+      <updated>1411945186460</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17219000" />
+    <option name="totallyTimeSpent" value="17298000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1143,8 +1147,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07125891" vertical-offset="0" max-vertical-offset="120">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.035629455" vertical-offset="0" max-vertical-offset="421">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
           <folding />
         </state>
       </provider>
