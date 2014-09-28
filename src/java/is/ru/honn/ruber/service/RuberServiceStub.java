@@ -91,7 +91,7 @@ public class RuberServiceStub extends RuObject implements RuberService {
         if (!users.containsKey(user.getUserName())) {
             users.put(user.getUserName(), user);
         } else {
-            throw new UsernameExistsException();
+            throw new UsernameExistsException("Username exists");
         }
     }
 
@@ -113,7 +113,7 @@ public class RuberServiceStub extends RuObject implements RuberService {
         if (u != null) {
             return u;
         } else {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User not found");
         }
     }
 
