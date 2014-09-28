@@ -1,0 +1,30 @@
+{"products": [
+    {
+        "capacity": 4,
+        "image": "http:\/\/d1a3f4spazzrp4.cloudfront.net\/car-types\/mono\/mono-uberx.png",
+        "display_name": "uberX",
+        "product_id": "bb55e494-db44-49fe-8a12-1429d89f1231",
+        "description": "The low-cost Uber"
+    },
+    {
+        "capacity": 6,
+        "image": "http:\/\/d1a3f4spazzrp4.cloudfront.net\/car-types\/mono\/mono-uberxl2.png",
+        "display_name": "uberXL",
+        "product_id": "821415d8-3bd5-4e27-9604-194e4359a449",
+        "description": "low-cost rides for large groups"
+    },
+    {
+        "capacity": 4,
+        "image": "http:\/\/d1a3f4spazzrp4.cloudfront.net\/car-types\/mono\/mono-black.png",
+        "display_name": "UberBLACK",
+        "product_id": "23a231fd-9fa8-45a7-b212-e3f9cb69873f",
+        "description": "The original Uber"
+    },
+    {
+        "capacity": 6,
+        "image": "http:\/\/d1a3f4spazzrp4.cloudfront.net\/car-types\/mono\/mono-suv.png",
+        "display_name": "UberSUV",
+        "product_id": "c9b74e41-816c-4df8-8290-41fc1df9476c",
+        "description": "Room for everyone"
+    }
+]}

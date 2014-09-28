@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="processContext" class="is.ruframework.process.RuProcessContext">
+        <property name="processName">
+            <value>ImportContentProcess</value>
+        </property>
+        <property name="importURL">
+            <value>http://rss.news.yahoo.com/rss/tech</value>
+        </property>
+        <property name="processClass">
+            <value>is.ru.honn.tube.process.ImportContentProcess</value>
+        </property>
+    </bean>
+</beans>
