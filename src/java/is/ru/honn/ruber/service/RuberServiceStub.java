@@ -96,8 +96,14 @@ public class RuberServiceStub extends RuObject implements RuberService {
     }
 
     @Override
-    public User getUser(String uuid) {
-        return null;
+    public User getUser(String username) {
+        User u = null;
+        try {
+            u = users.get(username);
+        } catch (UserNotFoundException uex) {
+            log.severe(uex.getMessage());
+        }
+        return u;
     }
 
 }

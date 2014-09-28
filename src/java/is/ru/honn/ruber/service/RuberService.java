@@ -13,6 +13,6 @@ public interface RuberService
   public History getHistory(String uuid);
   public void signup(User user);
   public List<User> getUsers(int offset);
-  public User getUser(String uuid);
+  public User getUser(String username);
 
 }
