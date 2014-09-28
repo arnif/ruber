@@ -100,7 +100,7 @@ public class RuberServiceStub extends RuObject implements RuberService {
         ArrayList<User> userArrayList = new ArrayList<User>();
         userArrayList.addAll(users.values());
 
-        if (userArrayList.size() > 100) {
+        if (userArrayList.size() < 100) {
             MAX_USERS = userArrayList.size();
         }
 
