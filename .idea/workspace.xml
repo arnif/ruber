@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="718dbd8e-11ce-497f-aa34-266de5671508" name="Default" comment="lol">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Ruber2.iws" />
@@ -810,7 +811,7 @@
       <created>1411589236820</created>
       <updated>1411589236820</updated>
       <workItem from="1411589237441" duration="3015000" />
-      <workItem from="1411827000602" duration="14190000" />
+      <workItem from="1411827000602" duration="14204000" />
     </task>
     <task id="LOCAL-00001" summary="foo">
       <created>1411938124160</created>
@@ -832,11 +833,15 @@
       <created>1411944980665</created>
       <updated>1411944980665</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="lol">
+      <created>1411945171841</created>
+      <updated>1411945171842</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17205000" />
+    <option name="totallyTimeSpent" value="17219000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
