@@ -36,20 +36,44 @@ public class TestRuberService extends TestCase
   {
       log.info("testUser");
 
-      User user = new User("lol", "sindris12", "Sindri", "Sigurjonsson", "1234", "sindris12@ru.is", "pic", "promofreestuff");
+      //Sign up user
 
+      User user = new User("lol", "sindris12", "Sindri", "Sigurjonsson", "1234", "sindris12@ru.is", "pic", "promofreestuff");
       service.signup(user);
+
+      //Get existing users
 
       assertEquals("Sindri", service.getUser("sindris12").getFirstName());
 
+      //Correct exception handling if user already exists.
 
-      //fail();
+      try {
+          User user1 = new User("lol2", "sindris12", "Sindri", "Sigurjonsson", "1234", "sindris12@ru.is", "pic", "promofreestuff");
+          service.signup(user1);
+          fail();
+      } catch (Exception e) {
+          assertEquals("Username exists", e.getMessage());
+      }
+
+      //Correct exception handling if user does not exists.
+
+      try {
+          service.getUser("NoUser");
+          fail();
+
+      } catch (Exception e) {
+          assertEquals("User not found", e.getMessage());
+      }
   }
 
   @Test
   public void testActivity()
   {
-    log.info("testActivity");
-    //fail();
+      log.info("testActivity");
+
+      //Add new Trip for a user
+      //Get history of all trips for a user
+      //Correct exception handling if user does not exist
+
   }
 }
