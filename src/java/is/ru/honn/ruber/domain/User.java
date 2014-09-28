@@ -14,6 +14,10 @@ public class User {
     private String picture;
     private String promoCode;
 
+    public User() {
+
+    }
+
     public User(String uuid, String userName, String firstName, String lastName, String password, String email, String picture, String promoCode) {
         this.uuid = uuid;
         this.userName = userName;

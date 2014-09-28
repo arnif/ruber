@@ -2,6 +2,7 @@ package is.ru.honn.ruber.service;
 
 import is.ru.honn.ruber.domain.Price;
 import is.ru.honn.ruber.domain.Product;
+import is.ru.honn.ruber.domain.User;
 import is.ruframework.domain.RuObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,6 +14,17 @@ import java.util.List;
 
 public class RuberServiceStub extends RuObject implements RuberService
 {
+
+  public RuberServiceStub(User user) {
+
+      try {
+          System.out.println("hello");
+      } catch (UsernameExistsException ue) {
+          log.severe(ue.getMessage());
+      }
+
+  }
+
   @Override
   public List getProducts(double latitude, double longitude) throws ServiceException
   {
