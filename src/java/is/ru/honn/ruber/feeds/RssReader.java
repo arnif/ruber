@@ -1,13 +1,15 @@
 package is.ru.honn.ruber.feeds;
 
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
-import is.ru.honn.ruber.domain.History;
+import is.ru.honn.ruber.domain.Trip;
+import is.ru.honn.ruber.service.RuberService;
+import is.ruframework.http.SimpleHttpRequest;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,39 +44,64 @@ public class RssReader extends AbstractFeedReader
         }
 
         // Open the feed
-        SyndFeedInput input = new SyndFeedInput();
-        SyndFeed syndFeed = null;
+        JSONParser parser = new JSONParser();
+        List productList = new ArrayList();
+
         try
         {
-            /*
-            syndFeed = input.build(new XmlReader(feedUrl));
-            */
+            String s = SimpleHttpRequest.sendGetRequest(String.valueOf(feedUrl));
+
+            //System.out.println(s);
+
+            JSONObject json = (JSONObject) parser.parse(s);
+
+            System.out.println(json.toJSONString());
+
+
+            JSONArray historyArr = (JSONArray) json.get("history");
+
+            System.out.println(historyArr.toJSONString());
+
+            List<Trip> trips = new ArrayList<Trip>();
+
+            String uuid = "";
+
+            for (int i = 0; i < historyArr.size(); i++) {
+                JSONObject jsonProduct = (JSONObject) historyArr.get(i);
+                Trip trip = new Trip();
+
+                long startTime = (Long) jsonProduct.get("start_time");
+                trip.setStart_time((int) startTime);
+                long requestTime = (Long) jsonProduct.get("request_time");
+                trip.setRequest_time((int) requestTime);
+                double distance = (Double) jsonProduct.get("distance");
+                trip.setDistance((float) distance);
+                trip.setProduct_id((String) jsonProduct.get("product_id"));
+                long endTime = (Long) jsonProduct.get("end_time");
+                trip.setEnd_time((int) endTime);
+                trip.setUuid((String) jsonProduct.get("uuid"));
+
+                trips.add(trip);
+
+                uuid = (String) jsonProduct.get("uuid");
+
+            }
+
+            RuberService ruberService;
+
+            //System.out.println(offset.toString());
+
+
         }
-        catch (Exception ioex)
+        catch (Exception e)
         {
-            throw new FeedException ("URL is not correct", ioex);
+            String tmp = "Unable to read products.json file.";
+            System.out.println(e.getMessage());
+            //log.severe(tmp);
+            //throw new ServiceException(tmp, e);
         }
 
-        // Get the items and create content for each
-        List list = syndFeed.getEntries();
-        Iterator i  = list.iterator();
-        SyndEntry ent = null;
-        History history;
-        while (i.hasNext())
-        {
-            ent = (SyndEntry)i.next();
-            history = new History();
 
-
-        /*
-            history.setTitle(ent.getTitle());
-            content.setLink(ent.getLink());
-            content.setDescription(ent.getDescription().getValue());
-            content.setPubDate(ent.getPublishedDate());
-            handler.processContent(content);
-
-            */
-        }
     }
 }
 

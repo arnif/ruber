@@ -8,7 +8,7 @@ public class Trip {
     private String uuid;
     private int request_time;
     private String product_id;
-    private double distance;
+    private float distance;
     private int start_time;
     private int end_time;
 
@@ -21,7 +21,9 @@ public class Trip {
         }
     }
 
-    public Trip(String uuid, int request_time, String product_id, double distance, int start_time, int end_time) {
+    public Trip() { }
+
+    public Trip(String uuid, int request_time, String product_id, float distance, int start_time, int end_time) {
         this.uuid = uuid;
         this.request_time = request_time;
         this.product_id = product_id;
@@ -54,11 +56,11 @@ public class Trip {
         this.product_id = product_id;
     }
 
-    public double getDistance() {
+    public float getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(float distance) {
         this.distance = distance;
     }
 

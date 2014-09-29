@@ -4,5 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="RuberService" class="is.ru.honn.ruber.service.RuberServiceStub" />
+    <bean id="feedReader" class="is.ru.honn.ruber.feeds.RssReader" />
 
 </beans>

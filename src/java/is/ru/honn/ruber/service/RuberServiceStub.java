@@ -18,6 +18,8 @@ public class RuberServiceStub extends RuObject implements RuberService {
   private Map<String, User> users = new HashMap<String, User>();
   private Map<String, History> historyMap = new HashMap<String, History>();
 
+  public RuberServiceStub() {}
+
   public RuberServiceStub(User user) {
       signup(user);
   }
@@ -70,18 +72,18 @@ public class RuberServiceStub extends RuObject implements RuberService {
   }
 
     @Override
-    public void addTrip(String username, Trip trip) {
-        if (users.containsKey(username)) {
-            historyMap.get(username).getTrips().add(trip);
+    public void addTrip(String uuid, Trip trip) {
+        if (users.containsKey(uuid)) {
+            historyMap.get(uuid).getTrips().add(trip);
         } else {
             throw new UserNotFoundException("Could not add trip, user not found");
         }
     }
 
     @Override
-    public History getHistory(String username) {
-        if (users.containsKey(username)) {
-            return historyMap.get(username);
+    public History getHistory(String uuid) {
+        if (users.containsKey(uuid)) {
+            return historyMap.get(uuid);
         } else {
             throw new UserNotFoundException("Could not get history, user not found");
         }
@@ -89,8 +91,8 @@ public class RuberServiceStub extends RuObject implements RuberService {
 
     @Override
     public void signup(User user) {
-        if (!users.containsKey(user.getUserName())) {
-            users.put(user.getUserName(), user);
+        if (!users.containsKey(user.getUuid())) {
+            users.put(user.getUuid(), user);
             System.out.println(users);
         } else {
             throw new UsernameExistsException("Username exists");
