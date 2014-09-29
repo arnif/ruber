@@ -1,7 +1,7 @@
 package is.ru.honn.ruber.feeds;
 
+import is.ru.honn.ruber.domain.History;
 import is.ru.honn.ruber.domain.Trip;
-import is.ru.honn.ruber.service.RuberService;
 import is.ruframework.http.SimpleHttpRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -10,7 +10,6 @@ import org.json.simple.parser.JSONParser;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by arnif on 9/29/14.
@@ -45,24 +44,21 @@ public class RssReader extends AbstractFeedReader
 
         // Open the feed
         JSONParser parser = new JSONParser();
-        List productList = new ArrayList();
 
         try
         {
             String s = SimpleHttpRequest.sendGetRequest(String.valueOf(feedUrl));
 
             //System.out.println(s);
+            ArrayList<Trip> trips = new ArrayList<Trip>();
 
             JSONObject json = (JSONObject) parser.parse(s);
 
-            System.out.println(json.toJSONString());
-
+            //System.out.println(json.toJSONString());
 
             JSONArray historyArr = (JSONArray) json.get("history");
 
-            System.out.println(historyArr.toJSONString());
-
-            List<Trip> trips = new ArrayList<Trip>();
+            //System.out.println(historyArr.toJSONString());
 
             String uuid = "";
 
@@ -79,24 +75,32 @@ public class RssReader extends AbstractFeedReader
                 trip.setProduct_id((String) jsonProduct.get("product_id"));
                 long endTime = (Long) jsonProduct.get("end_time");
                 trip.setEnd_time((int) endTime);
-                trip.setUuid((String) jsonProduct.get("uuid"));
+                uuid = (String) jsonProduct.get("uuid");
+                trip.setUuid(uuid);
 
                 trips.add(trip);
 
-                uuid = (String) jsonProduct.get("uuid");
 
             }
 
-            RuberService ruberService;
+            handler.processContent(uuid, trips);
 
-            //System.out.println(offset.toString());
+
+
+            History h = new History();
+
+            h.setOffset(0);
+            h.setCount(5);
+            h.setLimit(100);
 
 
         }
         catch (Exception e)
         {
-            String tmp = "Unable to read products.json file.";
+            String tmp = "Unable to read json.";
             System.out.println(e.getMessage());
+
+            e.printStackTrace();
             //log.severe(tmp);
             //throw new ServiceException(tmp, e);
         }

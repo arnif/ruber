@@ -1,6 +1,7 @@
 package is.ru.honn.ruber.process;
 
-import is.ru.honn.ruber.domain.History;
+import is.ru.honn.ruber.domain.Trip;
+import is.ru.honn.ruber.domain.User;
 import is.ru.honn.ruber.feeds.FeedException;
 import is.ru.honn.ruber.feeds.FeedHandler;
 import is.ru.honn.ruber.feeds.FeedReader;
@@ -10,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -68,17 +70,19 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler 
         reader.setFeedHandler(this);
 
 
-
     }
 
     @Override
     public void afterProcess() {
         log.info("after process");
-
     }
 
     @Override
-    public void processContent(History history) {
-
+    public void processContent(String uuid, ArrayList<Trip> trips) {
+        User u = new User(uuid, "foobar", "foo", "bar", "1234", "foo@bar.is", "none", "213");
+        ruberService.signup(u);
+        for (Trip trip : trips) {
+            ruberService.addTrip(uuid, trip);
+        }
     }
 }

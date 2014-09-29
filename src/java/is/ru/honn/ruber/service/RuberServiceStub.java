@@ -74,7 +74,18 @@ public class RuberServiceStub extends RuObject implements RuberService {
     @Override
     public void addTrip(String uuid, Trip trip) {
         if (users.containsKey(uuid)) {
-            historyMap.get(uuid).getTrips().add(trip);
+            if (historyMap.containsKey(uuid)) {
+                historyMap.get(uuid).getTrips().add(trip);
+            } else {
+                History h = new History();
+                h.setLimit(100);
+                h.setCount(5);
+                h.setOffset(0);
+                ArrayList<Trip> t = new ArrayList<Trip>();
+                t.add(trip);
+                h.setTrips(t);
+                historyMap.put(uuid, h);
+            }
         } else {
             throw new UserNotFoundException("Could not add trip, user not found");
         }
