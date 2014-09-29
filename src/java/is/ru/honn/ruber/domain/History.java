@@ -12,6 +12,10 @@ public class History {
     private int count;
     private ArrayList<Trip> trips;
 
+    public History() {
+
+    }
+
     public History(int offset, int limit, int count, ArrayList<Trip> trips) {
         this.offset = offset;
         this.limit = limit;
