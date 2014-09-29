@@ -16,7 +16,7 @@ public class RuberServiceStub extends RuObject implements RuberService {
 
   private int MAX_USERS = 100;
   private Map<String, User> users = new HashMap<String, User>();
-  private History history;
+  private Map<String, History> historyMap = new HashMap<String, History>();
 
   public RuberServiceStub(User user) {
       signup(user);
@@ -71,19 +71,20 @@ public class RuberServiceStub extends RuObject implements RuberService {
 
     @Override
     public void addTrip(String username, Trip trip) {
-        history.getTrips().add(trip);
+        if (users.containsKey(username)) {
+            historyMap.get(username).getTrips().add(trip);
+        } else {
+            throw new UserNotFoundException("Could not add trip, user not found");
+        }
     }
 
     @Override
-    public History getHistory(String uuid) {
-        List<Trip> t = new ArrayList<Trip>();
-        for (Trip trip : history.getTrips()) {
-            if (trip.getUuid() == uuid){
-                t.add(trip);
-            }
+    public History getHistory(String username) {
+        if (users.containsKey(username)) {
+            return historyMap.get(username);
+        } else {
+            throw new UserNotFoundException("Could not get history, user not found");
         }
-
-        return null;
     }
 
     @Override
