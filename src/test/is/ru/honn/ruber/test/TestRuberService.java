@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,14 +19,16 @@ public class TestRuberService extends TestCase
 
   Logger log = Logger.getLogger(TestRuberService.class.getName());
 
+  private User user = new User();
+
   @Autowired
   private RuberService service;
 
   @Before
   public void setUp() throws Exception
   {
-      ApplicationContext context= new ClassPathXmlApplicationContext("app-test-stub.xml");
-      User user = (User)context.getBean("user");
+//      user = service.getUser(user.getUserName());
+  //    System.out.println(user.getFirstName());
   }
 
   @Test
@@ -38,18 +38,18 @@ public class TestRuberService extends TestCase
 
       //Sign up user
 
-      User user = new User("lol", "sindris12", "Sindri", "Sigurjonsson", "1234", "sindris12@ru.is", "pic", "promofreestuff");
+      //User user = new User("lol", "sindris12", "Sindri", "Sigurjonsson", "1234", "sindris12@ru.is", "pic", "promofreestuff");
+
       service.signup(user);
 
       //Get existing users
 
-      assertEquals("Sindri", service.getUser("sindris12").getFirstName());
+      assertEquals("Foo", service.getUser("foo").getFirstName());
 
       //Correct exception handling if user already exists.
 
       try {
-          User user1 = new User("lol2", "sindris12", "Sindri", "Sigurjonsson", "1234", "sindris12@ru.is", "pic", "promofreestuff");
-          service.signup(user1);
+          service.signup(user);
           fail();
       } catch (Exception e) {
           assertEquals("Username exists", e.getMessage());
@@ -70,6 +70,8 @@ public class TestRuberService extends TestCase
   public void testActivity()
   {
       log.info("testActivity");
+
+      //service.getUser("sindris12").getId();
 
       //Add new Trip for a user
       //Get history of all trips for a user

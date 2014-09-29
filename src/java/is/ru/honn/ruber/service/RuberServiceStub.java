@@ -90,6 +90,7 @@ public class RuberServiceStub extends RuObject implements RuberService {
     public void signup(User user) {
         if (!users.containsKey(user.getUserName())) {
             users.put(user.getUserName(), user);
+            System.out.println(users);
         } else {
             throw new UsernameExistsException("Username exists");
         }

@@ -29,14 +29,6 @@ public class User {
         this.promoCode = promoCode;
     }
 
-    public String getId() {
-        return uuid;
-    }
-
-    public void setId(String uuid) {
-        this.uuid = uuid;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -91,5 +83,13 @@ public class User {
 
     public void setPromoCode(String promoCode) {
         this.promoCode = promoCode;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getUuid() {
+        return uuid;
     }
 }

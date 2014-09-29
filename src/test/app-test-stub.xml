@@ -7,13 +7,14 @@
         <constructor-arg ref="user"></constructor-arg>
     </bean>
     <bean id="user" class="is.ru.honn.ruber.domain.User">
+        <property name="uuid"><value>lol</value></property>
         <property name="email"><value>foo@foo.is</value></property>
-        <property name="firstName"><value>FooBar</value></property>
+        <property name="firstName"><value>Foo</value></property>
+        <property name="lastName"><value>Bar</value></property>
         <property name="userName"><value>foo</value></property>
         <property name="password"><value>bar</value></property>
         <property name="picture"><value>kool</value></property>
         <property name="promoCode"><value>123</value></property>
-
     </bean>
 
 </beans>
