@@ -98,15 +98,14 @@ public class RuberServiceStub extends RuObject implements RuberService {
     }
 
     @Override
-    public List<User> getUsers(int offset) {
+    public List<User> getUsers(int offset, int count) {
         ArrayList<User> userArrayList = new ArrayList<User>();
         userArrayList.addAll(users.values());
 
-        if (userArrayList.size() < 100) {
-            MAX_USERS = userArrayList.size();
+        if (count > MAX_USERS) {
+            count = MAX_USERS;
         }
-
-        return userArrayList.subList(offset, MAX_USERS);
+        return userArrayList.subList(offset, offset + count);
     }
 
     @Override

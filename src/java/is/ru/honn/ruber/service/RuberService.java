@@ -12,7 +12,7 @@ public interface RuberService
   public void addTrip(String username, Trip trip);
   public History getHistory(String username);
   public void signup(User user);
-  public List<User> getUsers(int offset);
+  public List<User> getUsers(int offset, int count);
   public User getUser(String username);
 
 }
