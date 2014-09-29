@@ -16,10 +16,9 @@ import java.util.logging.Logger;
 @ContextConfiguration("classpath:app-test-stub.xml")
 public class TestRuberService extends TestCase
 {
-
   Logger log = Logger.getLogger(TestRuberService.class.getName());
 
-  private User user = new User();
+  private User user;
 
   @Autowired
   private RuberService service;
@@ -27,8 +26,7 @@ public class TestRuberService extends TestCase
   @Before
   public void setUp() throws Exception
   {
-//      user = service.getUser(user.getUserName());
-  //    System.out.println(user.getFirstName());
+        user = new User();
   }
 
   @Test
@@ -37,17 +35,12 @@ public class TestRuberService extends TestCase
       log.info("testUser");
 
       //Sign up user
-
-      //User user = new User("lol", "sindris12", "Sindri", "Sigurjonsson", "1234", "sindris12@ru.is", "pic", "promofreestuff");
-
       service.signup(user);
 
       //Get existing users
-
       assertEquals("Foo", service.getUser("foo").getFirstName());
 
       //Correct exception handling if user already exists.
-
       try {
           service.signup(user);
           fail();
@@ -56,11 +49,9 @@ public class TestRuberService extends TestCase
       }
 
       //Correct exception handling if user does not exists.
-
       try {
           service.getUser("NoUser");
           fail();
-
       } catch (Exception e) {
           assertEquals("User not found", e.getMessage());
       }
