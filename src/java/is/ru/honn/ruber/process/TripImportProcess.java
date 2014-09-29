@@ -25,7 +25,7 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler 
     MessageSource messageSource;
     FeedReader reader;
 
-    private Locale locale = new Locale("IS"); //IS = icelandic
+    private Locale locale = new Locale("US"); //IS = icelandic
     private String userId;
 
     @Override
@@ -68,7 +68,8 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler 
     @Override
     public void processContent(String uuid, ArrayList<Trip> trips) {
         userId = uuid;
-        //User should exists but does not so we create the user
+        // Create mock user for this purpose only, should query user based on uuid.
+        // But since we have no Db we mock the user
         User u = new User(uuid, "foobar", "foo", "bar", "1234", "foo@bar.is", "none", "213");
         ruberService.signup(u);
         for (Trip trip : trips) {
