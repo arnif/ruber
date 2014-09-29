@@ -12,6 +12,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 /**
@@ -24,61 +25,50 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler 
     MessageSource messageSource;
     FeedReader reader;
 
+    private Locale locale = new Locale("IS"); //IS = icelandic
+    private String userId;
 
     @Override
     public void startProcess() {
-        log.info("start process");
-
-        /*
         log.info(messageSource.getMessage("processstart",
                 new Object[] { getProcessContext().getProcessName() },
-                Locale.getDefault()));
-
-                */
-        try
-        {
+                locale));
+        try {
             reader.read(getProcessContext().getImportURL());
         }
-        catch (FeedException e)
-        {
-
-            /*
-            log.info(messageSource.getMessage("processreaderror",
-                    new Object[] { getProcessContext().getImportFile() },
-                    Locale.getDefault()));
-            log.info(e.getMessage());
-            */
-
-
+        catch (FeedException e) {
+            log.severe(messageSource.getMessage("processreaderror",
+                    new Object[]{getProcessContext().getImportFile()},
+                    locale));
         }
-
-        /*
-           log.info(messageSource.getMessage("processstartdone",
-                new Object[] {ruberService.getContents().size()},
-                Locale.getDefault()));  */
-
-
     }
 
     @Override
     public void beforeProcess() {
-        log.info("before process");
+
         ApplicationContext ctx = new FileSystemXmlApplicationContext("src/app.xml");
         ruberService = (RuberService) ctx.getBean("RuberService");
         reader = (FeedReader) ctx.getBean("feedReader");
+        messageSource = (MessageSource) ctx.getBean("messageSource");
+
+        log.info(messageSource.getMessage("processbefore",
+                new Object[] { getProcessContext().getProcessName() } ,
+                locale));
 
         reader.setFeedHandler(this);
-
     }
 
     @Override
     public void afterProcess() {
-        log.info("after process");
+        log.info(messageSource.getMessage("processstartdone",
+                new Object[]{ruberService.getHistory(userId).getTrips().size()},
+                locale));
     }
 
     @Override
     public void processContent(String uuid, ArrayList<Trip> trips) {
-        log.info("processing content");
+        userId = uuid;
+        //User should exists but does not so we create the user
         User u = new User(uuid, "foobar", "foo", "bar", "1234", "foo@bar.is", "none", "213");
         ruberService.signup(u);
         for (Trip trip : trips) {

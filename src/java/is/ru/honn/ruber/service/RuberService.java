@@ -12,6 +12,6 @@ public interface RuberService {
   public History getHistory(String uuid);
   public void signup(User user);
   public List<User> getUsers(int offset, int count);
-  public User getUser(String username);
+  public User getUser(String uuid);
 
 }
