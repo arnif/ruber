@@ -8,7 +8,6 @@ import java.util.ArrayList;
 /**
  * Created by arnif on 9/29/14.
  */
-public interface FeedHandler
-{
+public interface FeedHandler {
     public void processContent(String uuid, ArrayList<Trip> trips);
 }

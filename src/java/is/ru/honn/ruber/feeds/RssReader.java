@@ -1,6 +1,5 @@
 package is.ru.honn.ruber.feeds;
 
-import is.ru.honn.ruber.domain.History;
 import is.ru.honn.ruber.domain.Trip;
 import is.ruframework.http.SimpleHttpRequest;
 import org.json.simple.JSONArray;
@@ -10,55 +9,46 @@ import org.json.simple.parser.JSONParser;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Created by arnif on 9/29/14.
  */
-public class RssReader extends AbstractFeedReader
-{
-    public RssReader()
-    {
-    }
+public class RssReader extends AbstractFeedReader {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
+    public RssReader() { }
 
     public void setFeedHandler(FeedHandler handler)
     {
         this.handler = handler;
     }
 
-    public void read(String source) throws FeedException
-    {
-        if (handler == null)
-        {
+    public void read(String source) throws FeedException {
+
+        if (handler == null) {
             throw new FeedException("Handler unspecified");
         }
 
         URL feedUrl = null;
-        try
-        {
+
+        try {
             feedUrl = new URL(source);
-        }
-        catch (MalformedURLException murlex)
-        {
+
+        } catch (MalformedURLException murlex) {
             throw new FeedException ("URL is not correct", murlex);
         }
 
         // Open the feed
         JSONParser parser = new JSONParser();
 
-        try
-        {
+        try {
             String s = SimpleHttpRequest.sendGetRequest(String.valueOf(feedUrl));
 
-            //System.out.println(s);
             ArrayList<Trip> trips = new ArrayList<Trip>();
-
             JSONObject json = (JSONObject) parser.parse(s);
-
-            //System.out.println(json.toJSONString());
-
             JSONArray historyArr = (JSONArray) json.get("history");
-
-            //System.out.println(historyArr.toJSONString());
 
             String uuid = "";
 
@@ -79,33 +69,13 @@ public class RssReader extends AbstractFeedReader
                 trip.setUuid(uuid);
 
                 trips.add(trip);
-
-
             }
 
             handler.processContent(uuid, trips);
-
-
-
-            History h = new History();
-
-            h.setOffset(0);
-            h.setCount(5);
-            h.setLimit(100);
-
-
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String tmp = "Unable to read json.";
-            System.out.println(e.getMessage());
-
-            e.printStackTrace();
-            //log.severe(tmp);
-            //throw new ServiceException(tmp, e);
+            log.severe(tmp);
         }
-
-
     }
 }
 

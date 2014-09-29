@@ -69,7 +69,6 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler 
 
         reader.setFeedHandler(this);
 
-
     }
 
     @Override
@@ -79,6 +78,7 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler 
 
     @Override
     public void processContent(String uuid, ArrayList<Trip> trips) {
+        log.info("processing content");
         User u = new User(uuid, "foobar", "foo", "bar", "1234", "foo@bar.is", "none", "213");
         ruberService.signup(u);
         for (Trip trip : trips) {

@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class RuberServiceStub extends RuObject implements RuberService {
 
-  private int MAX_USERS = 100;
+  private final int MAX_USERS = 100;
   private Map<String, User> users = new HashMap<String, User>();
   private Map<String, History> historyMap = new HashMap<String, History>();
 
@@ -25,20 +25,16 @@ public class RuberServiceStub extends RuObject implements RuberService {
   }
 
   @Override
-  public List getProducts(double latitude, double longitude) throws ServiceException
-  {
+  public List getProducts(double latitude, double longitude) throws ServiceException {
     JSONParser parser = new JSONParser();
     List productList = new ArrayList();
 
-    try
-    {
+    try {
       JSONObject json = (JSONObject) parser.parse(new FileReader("products.json"));
       JSONArray products = (JSONArray) json.get("products");
 
-      for (int i = 0;
-           i < products.size();
-           i++)
-      {
+      for (int i = 0; i < products.size(); i++) {
+
         JSONObject jsonProduct = (JSONObject) products.get(i);
         Product product = new Product();
         product.setImage((String) jsonProduct.get("image"));
@@ -48,21 +44,18 @@ public class RuberServiceStub extends RuObject implements RuberService {
         product.setCapacity(((Long) jsonProduct.get("capacity")).intValue());
         productList.add(product);
       }
-    }
-    catch (Exception e)
-    {
+
+    } catch (Exception e) {
       String tmp = "Unable to read products.json file.";
       log.severe(tmp);
       throw new ServiceException(tmp, e);
     }
-
     return productList;
   }
 
   @Override
   public List<Price> getPriceEstimates(double start_latitude, double start_longitude,
-                                       double end_latitude, double end_longitude) throws ServiceException
-  {
+                                       double end_latitude, double end_longitude) throws ServiceException {
     List<Price> priceList = new ArrayList<Price>();
     priceList.add(new Price("08f17084-23fd-4103-aa3e-9b660223934b", "USD", "UberBLACK", 23, 29, 1));
     priceList.add(new Price("9af0174c-8939-4ef6-8e91-1a43a0e7c6f6", "USD", "UberSUV", 36, 44, 1.25));
