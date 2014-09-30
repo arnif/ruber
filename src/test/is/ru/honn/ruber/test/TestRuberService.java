@@ -56,6 +56,10 @@ public class TestRuberService extends TestCase
       } catch (Exception e) {
           assertEquals("User not found", e.getMessage());
       }
+
+      User u1 = new User("456", "gaga", null, null, null, null, null, null);
+      service.signup(u1);
+      assertEquals(service.getUsers(0,2).size(), 2);
   }
 
   @Test
@@ -70,11 +74,11 @@ public class TestRuberService extends TestCase
       assertEquals(service.getUser("123"), u);
 
       //Add new Trip for a user
-      Trip t = new Trip("123", 123, "abcd", 3.2f, 456, 789);
+      Trip t = new Trip("123", 123, "abcd", 3.2f, 456, 789, Trip.TripStatus.completed);
       service.addTrip("123", t);
       assertEquals(service.getHistory("123").getTrips().get(0), t);
 
-      Trip t2 = new Trip("123", 444, "ddd", 4.5f, 888, 987);
+      Trip t2 = new Trip("123", 444, "ddd", 4.5f, 888, 987, Trip.TripStatus.completed);
       service.addTrip("123", t2);
 
       ArrayList<Trip> mockTrips = new ArrayList<Trip>();
@@ -86,6 +90,12 @@ public class TestRuberService extends TestCase
 
       assertEquals(mockTrips, returnedTrips);
       //Correct exception handling if user does not exist
+      try {
+          service.addTrip("abc", t);
+          fail("Should have failed, user does not exist");
+      } catch(Exception e) {
+          assertEquals(e.getMessage(), "Could not add trip, user not found");
+      }
       try {
           service.getHistory("NoUser");
           fail("Should have failed, user does not exists");

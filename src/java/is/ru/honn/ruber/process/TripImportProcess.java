@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class TripImportProcess extends RuAbstractProcess implements FeedHandler {
 
+    //Get the logger, logging messages can be found in msg sources.
     Logger log = Logger.getLogger(this.getClass().getName());
     RuberService ruberService;
     MessageSource messageSource;
@@ -34,6 +35,7 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler 
                 new Object[] { getProcessContext().getProcessName() },
                 locale));
         try {
+            //read content from the url specified in the process.xml file
             reader.read(getProcessContext().getImportURL());
         }
         catch (FeedException e) {
@@ -69,7 +71,7 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler 
     public void processContent(String uuid, ArrayList<Trip> trips) {
         userId = uuid;
         // Create mock user for this purpose only, should query user based on uuid.
-        // But since we have no Db we mock the user
+        // But since we have no Db we mock the user with the same uuid we got from the history.json file provided
         User u = new User(uuid, "foobar", "foo", "bar", "1234", "foo@bar.is", "none", "213");
         ruberService.signup(u);
         for (Trip trip : trips) {

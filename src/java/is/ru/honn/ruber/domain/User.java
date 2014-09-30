@@ -14,10 +14,19 @@ public class User {
     private String picture;
     private String promoCode;
 
-    public User() {
+    public User() { }
 
-    }
-
+    /**
+     * Create new user
+     * @param uuid unique identifier of the user
+     * @param userName user name of the user
+     * @param firstName first name of the user
+     * @param lastName last name of the user
+     * @param password password of the user
+     * @param email email of the user
+     * @param picture picture of the user
+     * @param promoCode promo code of the user
+     */
     public User(String uuid, String userName, String firstName, String lastName, String password, String email, String picture, String promoCode) {
         this.uuid = uuid;
         this.userName = userName;

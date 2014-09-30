@@ -15,10 +15,8 @@ import java.util.Map;
 public class RuberServiceStub extends RuObject implements RuberService {
 
   private final int MAX_USERS = 100;
-  private Map<String, User> users = new HashMap<String, User>();
-  private Map<String, History> historyMap = new HashMap<String, History>();
-
-  private ArrayList<Trip> trips = new ArrayList<Trip>(); //TODO frekar en mappið ?
+  private Map<String, User> users = new HashMap<String, User>(); //Nota map til að mappa uuid á hvern notanda == hraðara.
+  private Map<String, History> historyMap = new HashMap<String, History>(); //Nota map til að mappa uuid á hvert History object == hraðara.
 
   public RuberServiceStub() {}
 
@@ -68,15 +66,11 @@ public class RuberServiceStub extends RuObject implements RuberService {
 
     @Override
     public void addTrip(String uuid, Trip trip) {
-        if (users.containsKey(uuid)) {
-
-            //Kannski
-            trips.add(trip);
-            ///kannski
-
-            if (historyMap.containsKey(uuid)) {
+        if (users.containsKey(uuid)) { //check if user exists
+            if (historyMap.containsKey(uuid)) { //check if he is in our history map
                 historyMap.get(uuid).getTrips().add(trip);
             } else {
+                //if he is not in our history map we put him there, currently limit, count and offset are unused
                 History h = new History();
                 h.setLimit(100);
                 h.setCount(5);
@@ -92,18 +86,8 @@ public class RuberServiceStub extends RuObject implements RuberService {
     }
 
     @Override
-    public History getHistory(String uuid) { //TODO skila lista af Trips ?
-        if (users.containsKey(uuid)) {
-
-            //KANNSKI
-            ArrayList<Trip> returnTrips = new ArrayList<Trip>();
-            for (Trip trip : trips) {
-                if(trip.getUuid().equals(uuid)) {
-                   returnTrips.add(trip);
-                }
-            }
-            //return returnTrips; //KANNSKI!
-
+    public History getHistory(String uuid) {
+        if (users.containsKey(uuid)) { //check if user exists
             return historyMap.get(uuid);
         } else {
             throw new UserNotFoundException("Could not get history, user not found");
@@ -111,29 +95,29 @@ public class RuberServiceStub extends RuObject implements RuberService {
     }
 
     @Override
-    public void signup(User user) {
+    public String signup(User user) {
         for (Map.Entry<String, User> stringUserEntry : users.entrySet()) {
-            if (stringUserEntry.getValue().getUserName().equals(user.getUserName())) {
+            if (stringUserEntry.getValue().getUserName().equals(user.getUserName())) { //check if the username exists
                 throw new UsernameExistsException("Username exists");
             }
         }
-
         users.put(user.getUuid(), user);
+        return user.getUuid(); //return the uuid of the user created
     }
 
     @Override
     public List<User> getUsers(int offset, int count) {
         ArrayList<User> userArrayList = new ArrayList<User>();
         userArrayList.addAll(users.values());
-
-        if (count > MAX_USERS) {
+        if (count > MAX_USERS) { //check if the amount of users requested are not more than are allowed
             count = MAX_USERS;
         }
+        //return from where the user requested to where the user requested
         return userArrayList.subList(offset, offset + count);
     }
 
     @Override
-    public User getUser(String uuid) {
+    public User getUser(String uuid) { //get one user
         User u = users.get(uuid);
         if (u != null) {
             return u;
@@ -141,5 +125,4 @@ public class RuberServiceStub extends RuObject implements RuberService {
             throw new UserNotFoundException("User not found");
         }
     }
-
 }

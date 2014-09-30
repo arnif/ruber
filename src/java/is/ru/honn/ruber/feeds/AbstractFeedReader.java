@@ -10,6 +10,5 @@ public abstract class AbstractFeedReader implements FeedReader {
     {
         this.handler = handler;
     }
-
     public abstract void read(String url) throws FeedException;
 }

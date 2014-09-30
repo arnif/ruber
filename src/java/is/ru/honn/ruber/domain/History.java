@@ -12,9 +12,15 @@ public class History {
     private int count;
     private ArrayList<Trip> trips;
 
-    public History() {
+    public History() {}
 
-    }
+    /**
+     * Create new history object
+     * @param offset position in pagination.
+     * @param limit number of items to retrieve (100 max).
+     * @param count total number of items available.
+     * @param trips the array of trips
+     */
 
     public History(int offset, int limit, int count, ArrayList<Trip> trips) {
         this.offset = offset;

@@ -14,17 +14,25 @@ import java.util.logging.Logger;
 /**
  * Created by arnif on 9/29/14.
  */
-public class RssReader extends AbstractFeedReader {
+public class JsonReader extends AbstractFeedReader {
 
+    /**
+     * use this for logging stuff
+     */
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    public RssReader() { }
+    public JsonReader() { }
 
     public void setFeedHandler(FeedHandler handler)
     {
         this.handler = handler;
     }
 
+    /**
+     * Read content from the source
+     * @param source source of the content (url)
+     * @throws FeedException if any errors come up
+     */
     public void read(String source) throws FeedException {
 
         if (handler == null) {
@@ -40,7 +48,7 @@ public class RssReader extends AbstractFeedReader {
             throw new FeedException ("URL is not correct", murlex);
         }
 
-        // Open the feed
+        //Create the parser to parse the json
         JSONParser parser = new JSONParser();
 
         try {
@@ -67,10 +75,12 @@ public class RssReader extends AbstractFeedReader {
                 trip.setEnd_time((int) endTime);
                 uuid = (String) jsonProduct.get("uuid");
                 trip.setUuid(uuid);
+                trip.setTripStatus(Trip.TripStatus.completed.toString());
 
                 trips.add(trip);
             }
 
+            //handle the content we got from the source
             handler.processContent(uuid, trips);
         } catch (Exception e) {
             String tmp = "Unable to read json.";

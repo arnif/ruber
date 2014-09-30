@@ -11,8 +11,9 @@ public class Trip {
     private float distance;
     private int start_time;
     private int end_time;
+    private String tripStatus;
 
-    public static enum TripStatus {
+    public enum TripStatus {
         completed;
 
         @Override
@@ -23,13 +24,25 @@ public class Trip {
 
     public Trip() { }
 
-    public Trip(String uuid, int request_time, String product_id, float distance, int start_time, int end_time) {
+    /**
+     * Create new trip
+     * @param uuid unique user identifier.
+     * @param request_time unix timestamp of trip request time.
+     * @param product_id unique identifier representing a specific product for a given latitude & longitude.
+     * @param distance length of trip in km.
+     * @param start_time unix timestamp of trip start time.
+     * @param end_time unix timestamp of trip end time.
+     * @param tripStatus status of the trip. Only returns completed for now.
+     */
+
+    public Trip(String uuid, int request_time, String product_id, float distance, int start_time, int end_time, TripStatus tripStatus) {
         this.uuid = uuid;
         this.request_time = request_time;
         this.product_id = product_id;
         this.distance = distance;
         this.start_time = start_time;
         this.end_time = end_time;
+        this.tripStatus = tripStatus.completed.toString();
     }
 
     public String getUuid() {
@@ -78,5 +91,13 @@ public class Trip {
 
     public void setEnd_time(int end_time) {
         this.end_time = end_time;
+    }
+
+    public String getTripStatus() {
+        return tripStatus;
+    }
+
+    public void setTripStatus(String tripStatus) {
+        this.tripStatus = tripStatus;
     }
 }
