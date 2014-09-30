@@ -14,7 +14,7 @@ public interface RuberService {
      * PUT /v1/ruber/trip/uuid
      * @param uuid unique identifier of the user
      * @param trip that will be added to the user
-     * API returns status code 201 Created for successful PUT
+     * Status-code 201 Created
      */
   public void addTrip(String uuid, Trip trip);
 
@@ -23,6 +23,7 @@ public interface RuberService {
      * GET /v1/ruber/history/uuid
      * @param uuid unique identifier of the user
      * @return history object that contains array of tips.
+     * Status-code 200 Ok
      * Example:
      * {
         "offset": 0,
@@ -48,6 +49,7 @@ public interface RuberService {
      * POST /v1/ruber/signup
      * @param user object
      * @return unique identifier of the user that was created
+     * Status-code 201 Created
      * Example:
      * {
      *     "uuid": "7354db54-cc9b-4961-81f2-0094b8e2d215"
@@ -61,6 +63,7 @@ public interface RuberService {
      * @param offset position in pagination.
      * @param count total number of items to get (MAX 100).
      * @return list of users requested
+     * Status-code 200 Ok
      * Example:
      * {[
      *      "uuid": "7354db54-cc9b-4961-81f2-0094b8e2d215",
@@ -90,6 +93,7 @@ public interface RuberService {
      * GET /v1/ruber/user/uuid
      * @param uuid unique identifier of the user
      * @return the user requested
+     * Status-code 200 Ok
      * Example:
      * {
      *      "uuid": "7354db54-cc9b-4961-81f2-0094b8e2d215",
