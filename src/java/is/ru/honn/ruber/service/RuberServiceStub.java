@@ -18,6 +18,8 @@ public class RuberServiceStub extends RuObject implements RuberService {
   private Map<String, User> users = new HashMap<String, User>();
   private Map<String, History> historyMap = new HashMap<String, History>();
 
+  private ArrayList<Trip> trips = new ArrayList<Trip>(); //TODO frekar en mappið ?
+
   public RuberServiceStub() {}
 
   public RuberServiceStub(User user) {
@@ -67,6 +69,11 @@ public class RuberServiceStub extends RuObject implements RuberService {
     @Override
     public void addTrip(String uuid, Trip trip) {
         if (users.containsKey(uuid)) {
+
+            //Kannski
+            trips.add(trip);
+            ///kannski
+
             if (historyMap.containsKey(uuid)) {
                 historyMap.get(uuid).getTrips().add(trip);
             } else {
@@ -85,8 +92,18 @@ public class RuberServiceStub extends RuObject implements RuberService {
     }
 
     @Override
-    public History getHistory(String uuid) {
+    public History getHistory(String uuid) { //TODO skila lista af Trips ?
         if (users.containsKey(uuid)) {
+
+            //KANNSKI
+            ArrayList<Trip> returnTrips = new ArrayList<Trip>();
+            for (Trip trip : trips) {
+                if(trip.getUuid().equals(uuid)) {
+                   returnTrips.add(trip);
+                }
+            }
+            //return returnTrips; //KANNSKI!
+
             return historyMap.get(uuid);
         } else {
             throw new UserNotFoundException("Could not get history, user not found");
@@ -95,11 +112,13 @@ public class RuberServiceStub extends RuObject implements RuberService {
 
     @Override
     public void signup(User user) {
-        if (!users.containsKey(user.getUuid())) {
-            users.put(user.getUuid(), user);
-        } else {
-            throw new UsernameExistsException("Username exists");
+        for (Map.Entry<String, User> stringUserEntry : users.entrySet()) {
+            if (stringUserEntry.getValue().getUserName().equals(user.getUserName())) {
+                throw new UsernameExistsException("Username exists");
+            }
         }
+
+        users.put(user.getUuid(), user);
     }
 
     @Override
